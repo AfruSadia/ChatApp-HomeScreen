@@ -34,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
       "time": "4:34 PM",
     },
     {
-      "message": "I heard u guys launching new product?",
+      "message": "I heard u guys launching\n new product?",
       "type": "sender",
       "time": "4:35 PM",
     },
@@ -121,7 +121,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          chatList[index]["time"],
+                          "\t\t\t\t" + chatList[index]["time"],
                         )
                       ],
                     )),

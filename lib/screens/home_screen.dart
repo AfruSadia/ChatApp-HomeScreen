@@ -12,8 +12,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool selected = true;
   @override
+  bool isSelected = false;
+  List iconList = [
+    {
+      "icon": Icons.home,
+      "isSelected": false,
+    },
+    {
+      "icon": Icons.favorite,
+      "isSelected": false,
+    },
+    {
+      "icon": Icons.search,
+      "isSelected": false,
+    },
+    {
+      "icon": Icons.person,
+      "isSelected": false,
+    },
+  ];
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColor.white,
@@ -201,6 +219,12 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Image(image: AssetImage('images/navimg.png')),
+        backgroundColor: KColor.appbartext,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         height: 60,
         //color: Colors.white,
@@ -215,41 +239,68 @@ class _HomeState extends State<Home> {
                   blurRadius: 12,
                   offset: Offset(0, 3))
             ]),
-        child: Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(
-                  Icons.home,
-                  color: KColor.appbartext,
-                ),
-                Icon(
-                  Icons.favorite,
-                  color: KColor.appbartext,
-                ),
-                Positioned(
-                  top: 30,
-                  child: Container(
-                    height: 80,
-                    width: 80,
-                    child: const Image(
-                      image: AssetImage('images/navimg.png'),
-                      fit: BoxFit.cover,
+        // child: Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   children: [
+        //     Icon(
+        //       Icons.home,
+        //       color: KColor.appbartext,
+        //     ),
+        //     Icon(
+        //       Icons.favorite,
+        //       color: KColor.appbartext,
+        //     ),
+        //     Icon(
+        //       Icons.search,
+        //       color: KColor.appbartext,
+        //     ),
+        //     Icon(
+        //       Icons.person,
+        //       color: KColor.appbartext,
+        //     ),
+        //   ],
+        // ),
+        child: Row(
+          children: List.generate(
+              iconList.length,
+              (index) => Container(
+                    // padding: EdgeInsets.only(bottom: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          iconList[index]["isSelected"] =
+                              !iconList[index]["isSelected"];
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 95,
+                          ),
+                          Icon(
+                            iconList[index]["icon"],
+                            size: 28,
+                            color: iconList[index]["isSelected"]
+                                ? KColor.appbartext
+                                : Colors.grey,
+                          ),
+                          Container(
+                            height: 10,
+                            width: 15,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8)),
+                              color: iconList[index]["isSelected"]
+                                  ? KColor.appbartext
+                                  : Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-                Icon(
-                  Icons.search,
-                  color: KColor.appbartext,
-                ),
-                Icon(
-                  Icons.person,
-                  color: KColor.appbartext,
-                ),
-              ],
-            ),
-          ],
+                  )),
         ),
       ),
     );
