@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.mulish().fontFamily,
       ),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: ChatScreen(),
     );
   }
 }

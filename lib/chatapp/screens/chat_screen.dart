@@ -36,7 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
     {
       "message": "I heard u guys launching\n new product?",
       "type": "sender",
-      "time": "4:35 PM",
+      "time": "\t\t\t\t4:35 PM",
     },
     {
       "message": "Yes, It calls UiHunt",
@@ -52,10 +52,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KColor.chatbackground,
+      extendBody: true,
+      backgroundColor: KColor.white.withOpacity(.98),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: KColor.white,
+        backgroundColor: KColor.white.withOpacity(.98),
         leading: Icon(
           Icons.arrow_back_ios,
           color: KColor.black,
@@ -63,20 +64,20 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Center(
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 30,
               ),
-              Image(
+              const Image(
                 image: AssetImage('images/chat_img.png'),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
                 "Anaya Sanji",
                 style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontFamily: GoogleFonts.poppins().fontFamily,
                     color: KColor.chattext),
               )
@@ -98,18 +99,18 @@ class _ChatScreenState extends State<ChatScreen> {
           itemCount: chatList.length,
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
               child: Align(
                 alignment: chatList[index]["type"] == "recieve"
                     ? Alignment.topLeft
                     : Alignment.topRight,
                 child: Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: chatList[index]["type"] == "recieve"
                             ? KColor.white
-                            : KColor.sendertext.withOpacity(0.2)),
+                            : KColor.sendertext.withOpacity(0.1)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -118,10 +119,37 @@ class _ChatScreenState extends State<ChatScreen> {
                           style: TextStyle(
                               color: KColor.chattext,
                               fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),
                         ),
-                        Text(
-                          "\t\t\t\t" + chatList[index]["time"],
+                        Container(
+                          width: chatList[index]["message"] == "Hello"
+                              ? 110
+                              : chatList[index]["message"] == "Hi"
+                                  ? 110
+                                  : chatList[index]["message"] ==
+                                          "How are you?😜"
+                                      ? 181
+                                      : chatList[index]["message"] ==
+                                              "Nice, bro🤟"
+                                          ? 233
+                                          : chatList[index]["message"] ==
+                                                  "Nice, bro🤟"
+                                              ? 233
+                                              : chatList[index]["message"] ==
+                                                      "I heard u guys launching new product?"
+                                                  ? 238
+                                                  : chatList[index]
+                                                              ["message"] ==
+                                                          "Yes, It calls UiHunt"
+                                                      ? 212
+                                                      : 182,
+                          child: Text(
+                            chatList[index]["time"],
+                            textAlign: TextAlign.right,
+                            style: const TextStyle(
+                                fontSize: 12, color: Color(0xFF002251)),
+                          ),
                         )
                       ],
                     )),
@@ -129,37 +157,43 @@ class _ChatScreenState extends State<ChatScreen> {
             );
           }),
       bottomNavigationBar: Container(
-        height: 80,
-        color: KColor.white,
+        height: 100,
+        //color: Colors.grey,
         child: Row(
+          //mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-                margin: const EdgeInsets.only(left: 10),
-                height: 50,
-                width: 50,
+                margin: const EdgeInsets.only(
+                  left: 20,
+                ),
+                height: 46,
+                width: 46,
                 child: const Image(
                   image: AssetImage('images/add.png'),
                   fit: BoxFit.cover,
                 )),
             const SizedBox(
-              width: 25,
+              width: 8,
             ),
-            const Expanded(
-              child: TextField(
+            Container(
+              padding: EdgeInsets.only(left: 15, top: 5),
+              height: 54,
+              width: 278,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: KColor.white),
+              child: const TextField(
                 decoration: InputDecoration(
                     hintText: 'Type a message',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(
+                        color: Color(0xFF9093A3),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500),
+                    suffixIcon: Image(
+                      image: AssetImage('images/send.png'),
+                    ),
                     border: InputBorder.none),
               ),
             ),
-            Container(
-                margin: const EdgeInsets.only(right: 10),
-                height: 25,
-                width: 25,
-                child: const Image(
-                  image: AssetImage('images/send.png'),
-                  fit: BoxFit.cover,
-                )),
           ],
         ),
       ),
